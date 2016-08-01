@@ -1,0 +1,6 @@
+@sSteamCmdForcePlatformType linux
+login anonymous
+force_install_dir /steamcmd/starbound
+app_info_update 1
+app_update 211820 validate
+quit

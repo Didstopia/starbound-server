@@ -1,0 +1,7 @@
+.env
+*.log
+starbound_data
+.DS_Store
+docker_*.sh
+.git/
+.git*
