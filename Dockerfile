@@ -2,14 +2,14 @@ FROM ubuntu:16.04
 
 MAINTAINER didstopia
 
+# Fixes apt-get warnings
+ARG DEBIAN_FRONTEND=noninteractive
+
 # Setup the locales
-RUN locale-gen en_US.UTF-8  
+RUN apt-get clean && apt-get update && apt-get install -y apt-utils locales && locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8  
 ENV LANGUAGE en_US:en  
 ENV LC_ALL en_US.UTF-8 
-
-# Fixes apt-get warnings
-ENV DEBIAN_FRONTEND noninteractive
 
 # Run a quick apt-get update/upgrade
 RUN apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y && apt-get autoremove -y
@@ -47,9 +47,6 @@ EXPOSE 21025/tcp
 # Setup default environment variables for the server
 ENV STEAM_USERNAME ""
 ENV STEAM_PASSWORD ""
-
-# Cleanup
-ENV DEBIAN_FRONTEND newt
 
 # Start the server
 ENTRYPOINT ["./start.sh"]
