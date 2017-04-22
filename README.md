@@ -13,6 +13,7 @@ The following environment variables are available:
 ```
 STEAM_USERNAME (DEFAULT: "" - Required for installing/updating Starbound)
 STEAM_PASSWORD (DEFAULT: "" - Required for installing/updating Starbound)
+SKIP_STEAMCMD  (DEFAULT: "" - Optional for skipping updating Starbound)
 ```
 
 # Updating the server
