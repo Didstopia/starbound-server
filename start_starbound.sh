@@ -39,8 +39,12 @@ if [ ! -f "/steamcmd/starbound/linux/starbound_server" ]; then
 else
 	# Check that username and password are both set, otherwise skip update
 	if [ -z "$STEAM_USERNAME" ] || [ -z "$STEAM_PASSWORD" ]; then
-		echo "Steam username or password not set, skipping update.."
-		exit 1
+		if [ -z "$SKIP_STEAMCMD" ]; then
+			echo "Steam username or password not set, exiting.."
+			exit 1
+		else
+			echo "Steam username or password not set, skipping update.."
+		fi
 	else
 		# Install Starbound from install.txt
 		echo "Installing Starbound.."
