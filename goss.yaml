@@ -1,0 +1,13 @@
+command:
+  ps -eo comm | tee /tmp/what_do_i_see:
+    title: Starbound Server should be running
+    exit-status: 0
+    stdout:
+      - starbound_serve
+
+port:
+  tcp:21025:
+    title: Starbound Server should be accepting TCP connections on port 21025
+    listening: true
+
+## TODO: Test graceful shutdown

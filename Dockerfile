@@ -1,32 +1,15 @@
-FROM ubuntu:16.04
+FROM didstopia/base:nodejs-steamcmd-ubuntu-16.04
 
-MAINTAINER didstopia
+MAINTAINER Didstopia <support@didstopia.com>
 
 # Fixes apt-get warnings
 ARG DEBIAN_FRONTEND=noninteractive
 
-# Setup the locales
-RUN apt-get clean && apt-get update && apt-get install -y apt-utils locales && locale-gen en_US.UTF-8
-ENV LANG en_US.UTF-8  
-ENV LANGUAGE en_US:en  
-ENV LC_ALL en_US.UTF-8 
-
-# Run a quick apt-get update/upgrade
-RUN apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y && apt-get autoremove -y
-
-# Install dependencies, mainly for SteamCMD
-RUN apt-get install -y \
-    ca-certificates \
-    software-properties-common \
-    python-software-properties \
-    lib32gcc1 \
-    libstdc++6 \
-    curl \
-    wget \
-    libvorbisfile3
-
-# Run as root
-USER root
+# Install dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    net-tools && \
+	rm -rf /var/lib/apt/lists/*
 
 # Create and set the steamcmd folder as a volume
 RUN mkdir -p /steamcmd/starbound
@@ -37,6 +20,9 @@ ADD install.txt /install.txt
 
 # Copy the startup script
 ADD start_starbound.sh /start.sh
+
+# Copy the default configuration file
+ADD starbound_server.default.config /starbound_server.default.config
 
 # Set the current working directory
 WORKDIR /
