@@ -1,5 +1,7 @@
 # Starbound server that runs inside a Docker container
 
+*Show your support for this project by signing up for a [free Bitrise account!](https://app.bitrise.io?referrer=02c20c56fa07adcb)*
+
 **NOTE**: This image will install/update on startup. The path ```/steamcmd/starbound``` can be mounted on the host for data persistence.
 
 # How to run the server
