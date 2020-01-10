@@ -69,15 +69,6 @@ fi
 # Set the working directory
 cd /steamcmd/starbound/linux || exit
 
-# Copy default configuration if necessary
-if [ ! -f "/steamcmd/starbound/storage/starbound_server.config" ]; then
-	echo ""
-	echo "Copying default configuration.."
-	echo ""
-	mkdir -p /steamcmd/starbound/storage
-	cp -f /starbound_server.default.config /steamcmd/starbound/storage/starbound_server.config
-fi
-
 # Run the server
 echo ""
 echo "Starting Starbound.."

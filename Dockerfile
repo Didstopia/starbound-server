@@ -21,9 +21,6 @@ ADD install.txt /install.txt
 # Copy the startup script
 ADD start_starbound.sh /start.sh
 
-# Copy the default configuration file
-ADD starbound_server.default.config /starbound_server.default.config
-
 # Set the current working directory
 WORKDIR /
 
