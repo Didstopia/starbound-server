@@ -1,28 +1,30 @@
-FROM didstopia/base:nodejs-steamcmd-ubuntu-16.04
+FROM didstopia/base:steamcmd-ubuntu-20.04
 
-MAINTAINER Didstopia <support@didstopia.com>
+LABEL maintainer="Didstopia <support@didstopia.com>"
 
 # Fixes apt-get warnings
 ARG DEBIAN_FRONTEND=noninteractive
 
-# Install dependencies
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    net-tools && \
-	rm -rf /var/lib/apt/lists/*
-
-# Create and set the steamcmd folder as a volume
+# Create the volume directories
 RUN mkdir -p /steamcmd/starbound
-VOLUME ["/steamcmd/starbound"]
 
 # Add the steamcmd installation script
-ADD install.txt /install.txt
+ADD install.txt /app/install.txt
 
 # Copy the startup script
-ADD start_starbound.sh /start.sh
+ADD start.sh /app/start.sh
 
 # Set the current working directory
 WORKDIR /
+
+# Fix permissions
+RUN chown -R 1000:1000 \
+    /steamcmd \
+    /app
+
+# Run as a non-root user by default
+ENV PGID 1000
+ENV PUID 1000
 
 # Expose necessary ports
 EXPOSE 21025/tcp
@@ -30,6 +32,13 @@ EXPOSE 21025/tcp
 # Setup default environment variables for the server
 ENV STEAM_USERNAME ""
 ENV STEAM_PASSWORD ""
+ENV SKIP_STEAMCMD ""
+
+# Define directories to take ownership of
+ENV CHOWN_DIRS "/app,/steamcmd"
+
+# Expose the volumes
+VOLUME [ "/app.steam", "/steamcmd/starbound" ]
 
 # Start the server
-ENTRYPOINT ["./start.sh"]
+CMD [ "bash", "/app/start.sh"]

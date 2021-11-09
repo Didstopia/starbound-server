@@ -1,0 +1,18 @@
+services:
+  starbound-server:
+    image: didstopia/starbound-server:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file: .env
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    ports:
+      - "21025:21025/tcp"
+    volumes:
+      - starbound-data:/steamcmd/starbound:cached
+      - starbound-steam:/app/.steam:cached
+
+volumes:
+  starbound-data:
+  starbound-steam:
