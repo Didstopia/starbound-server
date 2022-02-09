@@ -1,0 +1,12 @@
+version: 2
+updates:
+  # Automatically update base images in Dockerfiles if available
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: "daily"
+  # Also automatically update any Github Actions used in the workflow
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
