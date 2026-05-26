@@ -1,4 +1,4 @@
-FROM didstopia/base:steamcmd-ubuntu-20.04
+FROM --platform=amd64 didstopia/base:steamcmd-ubuntu-24.04
 
 LABEL maintainer="Didstopia <support@didstopia.com>"
 
